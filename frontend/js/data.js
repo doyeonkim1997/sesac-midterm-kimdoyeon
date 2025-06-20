@@ -32,3 +32,8 @@ export const todos = [
   { id: 30, title: "할 일 상세 설명 보이기", description: "hover 또는 toggle 방식", isCompleted: false },
 ];
 
+export const users = [
+  { email: "user1@example.com", password: "password123" },
+  { email: "admin@example.com", password: "adminpass" },
+  { email: "guest@example.com", password: "guest" }
+];
