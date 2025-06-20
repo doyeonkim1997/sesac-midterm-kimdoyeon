@@ -1,5 +1,3 @@
-// 새로운 login.js 파일
-
 document.getElementById('loginForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
