@@ -15,20 +15,24 @@ model users {
   email      String   @unique
   password   String
   username   String
-  phone      String
-  created_At DateTime @default(now())
-  updated_At DateTime @updatedAt
+  phone      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  todos      todos[]
 
   @@map("users")
 }
 
 model todos {
-todo_id      Int      @id @default(autoincrement())
-title        String   @unique
-description  String
-is_completed String
-updated_at   DateTime @default(now())
-deleted_at   DateTime @updatedAt
-user_id      Int
+  todo_id      Int       @id @default(autoincrement())
+  title        String    @unique
+  description  String    @db.Text
+  is_completed Boolean   @default(false)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  deleted_at   DateTime?
+  user_id      Int
+  user         users     @relation(fields: [user_id], references: [user_id])
 
-@@map("todos") 
+  @@map("todos")
+}
