@@ -1,6 +1,10 @@
-const { verifyToken } = require('../utils/jwt');
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-exports.authenticateToken = (req, res, next) => {
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
+export const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -9,10 +13,10 @@ exports.authenticateToken = (req, res, next) => {
   }
 
   try {
-    const decoded = verifyToken(token);
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
-    return res.status(403).json({ message: '유효하지 않은 토큰입니다.' });
+    return res.status(401).json({ message: '유효하지 않은 토큰입니다.' });
   }
 };
