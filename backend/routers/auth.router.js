@@ -15,44 +15,6 @@ const isValidEmail = (email) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-// 회원가입 API
-router.post('/signup', async (req, res, next) => {
-  try {
-    const { email, password, username } = req.body;
-
-    // 필수 필드 검증
-    if (!email || !password || !username) {
-      return res.status(400).json({ message: '모든 필드를 입력해주세요.' });
-    }
-
-    // 이메일 형식 검증
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ message: '유효하지 않은 이메일 형식입니다.' });
-    }
-
-    // 이메일 중복 확인
-    const existingUser = await prisma.users.findUnique({ where: { email } });
-    if (existingUser) {
-      return res.status(409).json({ message: '이미 존재하는 이메일입니다.' });
-    }
-
-    // 비밀번호 해싱
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // 새 사용자 생성
-    const newUser = await prisma.users.create({
-      data: {
-        email,
-        password: hashedPassword,
-        nickname: username,
-      },
-    });
-
-    return res.status(201).json({ userId: newUser.userId });
-  } catch (error) {
-    next(error);
-  }
-});
 
 // 로그인 API
 router.post('/login', async (req, res, next) => {
