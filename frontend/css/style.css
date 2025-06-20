@@ -32,3 +32,20 @@ body {
 .card:hover .card-text.description {
   display: block;
 }
+
+.container {
+  max-width: 500px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.btn {
+  min-width: 100px;
+  margin: 0 5px;
+}
+
+.alert {
+  margin-top: 15px;
+}

@@ -13,6 +13,52 @@
 </head>
 
 <body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between mb-3">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary" data-filter="all">전체</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="completed">완료</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="incomplete">미완료</button>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTodoModal">
+                새 할 일 추가
+            </button>
+        </div>
+
+        <div id="todoList" class="row g-4"></div>
+    </div>
+
+    <!-- Add Todo Modal -->
+    <div class="modal fade" id="addTodoModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">새 할 일 추가</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTodoForm">
+                        <div class="mb-3">
+                            <label class="form-label">제목</label>
+                            <input type="text" class="form-control" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">설명</label>
+                            <textarea class="form-control" name="description"></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" name="isCompleted">
+                            <label class="form-check-label">완료됨</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" id="saveTodoBtn">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="js/main.js"></script>
 </body>
