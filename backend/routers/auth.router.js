@@ -3,7 +3,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { prisma } from '../utils/prismaClient.js';
+import { prisma } from '../utils/prisma.js'; // ✅ named import
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -51,6 +51,8 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
+import { hashPassword } from '../utils/hash.js'; // ✅ 해시 함수 임포트
+
 // 사용자 생성 API
 router.post('/users', async (req, res, next) => {
   try {
@@ -59,6 +61,9 @@ router.post('/users', async (req, res, next) => {
     const existingUser = await prisma.users.findUnique({
       where: { email },
     });
+
+    const hashedPassword = await hashPassword(password); // ✅ 비밀번호 해시화
+
     if (existingUser) {
       return res.status(409).json({ message: '이미 존재하는 이메일입니다.' });
     }
@@ -66,7 +71,7 @@ router.post('/users', async (req, res, next) => {
     const newUser = await prisma.users.create({
       data: {
         email,
-        password, // 실제 서비스에서는 비밀번호를 해싱해야 합니다.
+        password: hashedPassword, // 해시된 비밀번호 저장
         nickname,
       },
     });

@@ -1,3 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
+// utils/prisma.js
+import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
-module.exports = prisma;
+export { prisma }; // ✅ named export로 바꿨음
